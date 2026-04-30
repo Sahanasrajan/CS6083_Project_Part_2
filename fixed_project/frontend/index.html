@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snickr</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div id="auth-screen" class="auth-screen">
+  <div class="auth-brand">
+    <div class="auth-logo">S</div>
+    <h1>Snickr</h1>
+    <p>Enterprise collaboration, minus the noise.</p>
+  </div>
+  <div class="auth-card">
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="login">Sign In</button>
+      <button class="auth-tab" data-tab="register">Register</button>
+    </div>
+
+    <!-- Login Form -->
+    <form id="login-form" class="auth-form active">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="login-email" placeholder="you@company.com" required />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="login-password" placeholder="••••••••" required />
+      </div>
+      <div id="login-error" class="form-error hidden"></div>
+      <button type="submit" class="btn-primary">Sign In</button>
+      <p class="auth-hint">Demo: alice@abc.com / password123</p>
+    </form>
+
+    <!-- Register Form -->
+    <form id="register-form" class="auth-form">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="reg-email" placeholder="you@company.com" required />
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="reg-username" placeholder="yourname" required />
+      </div>
+      <div class="form-group">
+        <label>Display Name <span class="optional">(optional)</span></label>
+        <input type="text" id="reg-nickname" placeholder="Your Name" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="reg-password" placeholder="Min 6 characters" required />
+      </div>
+      <div id="register-error" class="form-error hidden"></div>
+      <button type="submit" class="btn-primary">Create Account</button>
+    </form>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app-screen" class="app-screen hidden">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">Snickr</div>
+      <div class="sidebar-user" id="sidebar-user">
+        <div class="user-avatar" id="user-avatar-initials">A</div>
+        <span id="sidebar-username">alice</span>
+      </div>
+    </div>
+
+    <!-- Workspace Selector -->
+    <div class="sidebar-section">
+      <div class="section-header">
+        <span>Workspaces</span>
+        <button class="icon-btn" id="new-workspace-btn" title="New Workspace">+</button>
+      </div>
+      <div id="workspace-list" class="workspace-list"></div>
+    </div>
+
+    <!-- Channel List -->
+    <div class="sidebar-section" id="channel-section" style="display:none">
+      <div class="section-header">
+        <span id="channel-section-title">Channels</span>
+        <button class="icon-btn" id="new-channel-btn" title="New Channel">+</button>
+      </div>
+      <div id="channel-list" class="channel-list"></div>
+    </div>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <button class="sidebar-footer-btn" id="invitations-btn">
+        <span>📬</span> Invitations
+        <span id="invite-badge" class="badge hidden">0</span>
+      </button>
+      <button class="sidebar-footer-btn" id="search-btn">
+        <span>🔍</span> Search
+      </button>
+      <button class="sidebar-footer-btn" id="logout-btn">
+        <span>↩</span> Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Welcome Pane -->
+    <div id="welcome-pane" class="welcome-pane">
+      <div class="welcome-inner">
+        <div class="welcome-logo">S</div>
+        <h2>Welcome to Snickr</h2>
+        <p>Select a workspace and channel to start messaging.</p>
+      </div>
+    </div>
+
+    <!-- Channel View -->
+    <div id="channel-view" class="channel-view hidden">
+      <div class="channel-topbar">
+        <div class="channel-topbar-left">
+          <span class="channel-icon" id="topbar-channel-icon">#</span>
+          <div>
+            <div class="channel-topbar-name" id="topbar-channel-name">general</div>
+            <div class="channel-topbar-type" id="topbar-channel-type">public channel</div>
+          </div>
+        </div>
+        <div class="channel-topbar-right">
+          <button class="btn-secondary" id="invite-to-channel-btn">Invite</button>
+          <button class="btn-secondary" id="channel-members-btn">Members</button>
+        </div>
+      </div>
+
+      <div class="messages-area" id="messages-area">
+        <div class="messages-loading" id="messages-loading">Loading messages…</div>
+      </div>
+
+      <div class="message-composer" id="message-composer">
+        <textarea
+          id="message-input"
+          placeholder="Message #channel"
+          rows="1"
+        ></textarea>
+        <button class="send-btn" id="send-btn">↑</button>
+      </div>
+    </div>
+
+    <!-- Search Pane -->
+    <div id="search-pane" class="search-pane hidden">
+      <div class="pane-header">
+        <h2>Search Messages</h2>
+      </div>
+      <div class="search-controls">
+        <input type="text" id="search-input" placeholder="Search messages…" />
+        <select id="search-workspace-filter">
+          <option value="">All Workspaces</option>
+        </select>
+        <button class="btn-primary" id="do-search-btn">Search</button>
+      </div>
+      <div id="search-results" class="search-results"></div>
+    </div>
+
+    <!-- Invitations Pane -->
+    <div id="invitations-pane" class="invitations-pane hidden">
+      <div class="pane-header">
+        <h2>Pending Invitations</h2>
+      </div>
+      <div id="invitations-content"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- MODALS -->
+
+<!-- New Workspace Modal -->
+<div id="modal-new-workspace" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Create Workspace</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form id="form-new-workspace">
+      <div class="form-group">
+        <label>Workspace Name</label>
+        <input type="text" id="ws-name" placeholder="e.g. My Team" required />
+      </div>
+      <div class="form-group">
+        <label>Description <span class="optional">(optional)</span></label>
+        <textarea id="ws-desc" placeholder="What's this workspace for?" rows="2"></textarea>
+      </div>
+      <div id="ws-error" class="form-error hidden"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost modal-close">Cancel</button>
+        <button type="submit" class="btn-primary">Create</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- New Channel Modal -->
+<div id="modal-new-channel" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Create Channel</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form id="form-new-channel">
+      <div class="form-group">
+        <label>Channel Name</label>
+        <input type="text" id="ch-name" placeholder="e.g. announcements" required />
+      </div>
+      <div class="form-group">
+        <label>Type</label>
+        <select id="ch-type">
+          <option value="public">Public</option>
+          <option value="private">Private</option>
+          <option value="direct">Direct Message</option>
+        </select>
+      </div>
+      <div id="ch-error" class="form-error hidden"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost modal-close">Cancel</button>
+        <button type="submit" class="btn-primary">Create</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Invite to Workspace Modal -->
+<div id="modal-invite-ws" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Invite to Workspace</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form id="form-invite-ws">
+      <div class="form-group">
+        <label>User Email</label>
+        <input type="email" id="invite-ws-email" placeholder="colleague@company.com" required />
+      </div>
+      <div id="invite-ws-error" class="form-error hidden"></div>
+      <div id="invite-ws-success" class="form-success hidden"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost modal-close">Cancel</button>
+        <button type="submit" class="btn-primary">Send Invite</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Invite to Channel Modal -->
+<div id="modal-invite-ch" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Invite to Channel</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form id="form-invite-ch">
+      <div class="form-group">
+        <label>User Email</label>
+        <input type="email" id="invite-ch-email" placeholder="colleague@company.com" required />
+      </div>
+      <div id="invite-ch-error" class="form-error hidden"></div>
+      <div id="invite-ch-success" class="form-success hidden"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost modal-close">Cancel</button>
+        <button type="submit" class="btn-primary">Send Invite</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Channel Members Modal -->
+<div id="modal-members" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-members-title">Channel Members</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <div id="modal-members-list" class="members-list"></div>
+  </div>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/workspaces.js"></script>
+<script src="/js/channels.js"></script>
+<script src="/js/messages.js"></script>
+<script src="/js/invitations.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>

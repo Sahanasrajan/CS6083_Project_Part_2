@@ -163,13 +163,13 @@ $$ LANGUAGE plpgsql;
 
 -- Members (passwords are bcrypt hashes of 'password123')
 INSERT INTO Member (email, username, nickname, password_hash) VALUES
-('alice@abc.com',  'alice',  'CEO',             '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-('bob@abc.com',    'bob',    'CFO',             '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-('cathy@abc.com',  'cathy',  'Product Manager', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-('daniel@abc.com', 'daniel', 'SysAdmin',        '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-('ethan@abc.com',  'ethan',  'Data Engineer',   '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-('frank@abc.com',  'frank',  'Sales Manager',   '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-('greg@abc.com',   'greg',   'Chairman',        '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+('alice@abc.com',  'alice',  'CEO',             '$2a$10$1gZ2rFs61Eq00iJO3NsHUe1mahd7armxqVp5varJjImIwNPh7G0A.'),
+('bob@abc.com',    'bob',    'CFO',             '$2a$10$1gZ2rFs61Eq00iJO3NsHUe1mahd7armxqVp5varJjImIwNPh7G0A.'),
+('cathy@abc.com',  'cathy',  'Product Manager', '$2a$10$1gZ2rFs61Eq00iJO3NsHUe1mahd7armxqVp5varJjImIwNPh7G0A.'),
+('daniel@abc.com', 'daniel', 'SysAdmin',        '$2a$10$1gZ2rFs61Eq00iJO3NsHUe1mahd7armxqVp5varJjImIwNPh7G0A.'),
+('ethan@abc.com',  'ethan',  'Data Engineer',   '$2a$10$1gZ2rFs61Eq00iJO3NsHUe1mahd7armxqVp5varJjImIwNPh7G0A.'),
+('frank@abc.com',  'frank',  'Sales Manager',   '$2a$10$1gZ2rFs61Eq00iJO3NsHUe1mahd7armxqVp5varJjImIwNPh7G0A.'),
+('greg@abc.com',   'greg',   'Chairman',        '$2a$10$1gZ2rFs61Eq00iJO3NsHUe1mahd7armxqVp5varJjImIwNPh7G0A.');
 
 -- Workspaces
 INSERT INTO Workspace (name, description, creator_mID) VALUES

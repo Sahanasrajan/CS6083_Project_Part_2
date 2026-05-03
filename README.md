@@ -62,14 +62,14 @@ npm install
 ### 2. Create the database
 
 ```bash
-psql -U postgres -c "CREATE DATABASE snickr;"
-psql -U postgres -d snickr -f db/schema.sql
+psql postgres -c "DROP DATABASE snickr;"
+psql postgres -c "CREATE DATABASE snickr;"
+Psql -d snickr -f db/schema.sql
 ```
 
 ### 3. Configure environment
 
 ```bash
-cp .env.example .env
 # Edit .env with your DB credentials and a session secret
 ```
 

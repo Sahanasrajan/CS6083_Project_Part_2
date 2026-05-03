@@ -1,0 +1,12 @@
+{
+  "name": "Snickr Dev",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
+  "features": {
+    "ghcr.io/itsmechlark/features/postgresql:1": {
+      "version": "14"
+    }
+  },
+  "postCreateCommand": "cd backend && npm install",
+  "postStartCommand": "service postgresql start && su -c \"psql -c \\\"ALTER USER postgres PASSWORD 'postgres';\\\"\" postgres",
+  "forwardPorts": [3000]
+}

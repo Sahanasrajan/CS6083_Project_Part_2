@@ -64,7 +64,7 @@ npm install
 ```bash
 psql postgres -c "DROP DATABASE snickr;"
 psql postgres -c "CREATE DATABASE snickr;"
-Psql -d snickr -f db/schema.sql
+psql -d snickr -f db/schema.sql
 ```
 
 ### 3. Configure environment

@@ -9,7 +9,7 @@ const Messages = (() => {
   }
 
   function _renderMessage(msg) {
-    const name = msg.nickname || msg.username;
+    const name = msg.username;
     return `
       <div class="message" data-msgid="${msg.msgid}">
         <div class="msg-avatar">${escapeHtml(name.charAt(0).toUpperCase())}</div>

@@ -17,7 +17,7 @@ const Auth = (() => {
 
   function _updateSidebarUser() {
     if (!_currentUser) return;
-    const name = _currentUser.nickname || _currentUser.username;
+    const name = _currentUser.username + ' ' + _currentUser.nickname;
     const el = document.getElementById('sidebar-username');
     const av = document.getElementById('user-avatar-initials');
     if (el) el.textContent = escapeHtml(name);

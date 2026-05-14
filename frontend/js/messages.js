@@ -27,6 +27,7 @@ const Messages = (() => {
     _currentCID = cID;
     if (_polling) { clearInterval(_polling); _polling = null; }
 
+    const area = document.getElementById('messages-area');
 
     let loading = document.getElementById('messages-loading');
 
@@ -38,7 +39,6 @@ const Messages = (() => {
     }
 
 
-    const loading = document.getElementById('messages-loading');
     area.innerHTML = '';
     area.appendChild(loading);
     loading.classList.remove('hidden');

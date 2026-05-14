@@ -107,7 +107,7 @@ router.post('/channel', requireAuth, [
   try {
     // Inviter must be channel member
     const memberCheck = await pool.query(
-      'SELECT 1 FROM ChannelMember WHERE cID = $1 AND mID = $2',
+      'SELECT 1 FROM Channel WHERE cID = $1 AND creator_mid = $2',
       [cID, byMID]
     );
     if (memberCheck.rows.length === 0) return res.status(403).json({ error: 'Must be a channel member to invite' });

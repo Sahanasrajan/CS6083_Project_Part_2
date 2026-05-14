@@ -104,6 +104,14 @@ const Invitations = (() => {
       load();
     });
 
+   document.getElementById('invite-to-workspace-btn')
+  .addEventListener('click', () => {
+    const ws = Workspaces.getCurrent();
+    if (!ws) return alert('Select a workspace first.');
+
+    document.getElementById('modal-invite-ws').classList.remove('hidden');
+   });
+
     // Invite to workspace form
     document.getElementById('form-invite-ws').addEventListener('submit', async (e) => {
       e.preventDefault();

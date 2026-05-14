@@ -27,7 +27,17 @@ const Messages = (() => {
     _currentCID = cID;
     if (_polling) { clearInterval(_polling); _polling = null; }
 
-    const area = document.getElementById('messages-area');
+
+    let loading = document.getElementById('messages-loading');
+
+
+    if (!loading) {
+      loading = document.createElement('div');
+      loading.id = 'messages-loading';
+      loading.className = 'messages-loading';
+    }
+
+
     const loading = document.getElementById('messages-loading');
     area.innerHTML = '';
     area.appendChild(loading);
